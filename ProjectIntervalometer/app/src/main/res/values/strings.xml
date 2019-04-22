@@ -73,8 +73,8 @@
 
     <string name="pref_title_vibrate">Vibrate</string>
     <string name="start_interval">Start Interval!</string>
-    <string name="bulb">Bulb Press Time - Actual Exposure Time (seconds): %d</string>
-    <string name="intervals">Intervals between shots (seconds): %d</string>
+    <string name="bulb">Bulb Press Time - Actual Exposure Time (seconds): %s</string>
+    <string name="intervals">Intervals between shots (seconds): %s</string>
     <string name="ticks">Total number of ticks: %d</string>
     <string name="not_connected">Not Connected</string>
     <string name="StatusRunning">"Intervals Started!\nIntervalometer will not respond till intervals completed or device is reset.</string>

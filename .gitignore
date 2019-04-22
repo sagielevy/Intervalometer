@@ -34,6 +34,7 @@ captures/
 
 # IntelliJ
 *.iml
+ProjectIntervalometer/.idea
 ProjectIntervalometer/.idea/workspace.xml
 ProjectIntervalometer/.idea/tasks.xml
 ProjectIntervalometer/.idea/gradle.xml

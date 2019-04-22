@@ -24,8 +24,8 @@ const int CONTROL_PIN = 2; // Output GPIO2
 DNSServer dnsServer; // Create the DNS object
 ESP8266WebServer server(80);
 int numTicksVal = 0;
-int intervalTimeVal = 0; // Time between every interval
-int bulbPressTimeVal = 0; // Exposure time for every shot
+float intervalTimeVal = 0; // Time between every interval
+float bulbPressTimeVal = 0; // Exposure time for every shot
 char isIntervalRunning = false;
 
 void setup() {
@@ -82,9 +82,9 @@ void initHardware()
 }
 
 void HandleClientRequest() {
-  intervalTimeVal = server.arg("intervalTime").toInt();
+  intervalTimeVal = server.arg("intervalTime").toFloat();
   numTicksVal = server.arg("numTicks").toInt();
-  bulbPressTimeVal = server.arg("bulbPressTime").toInt();
+  bulbPressTimeVal = server.arg("bulbPressTime").toFloat();
   Serial.println(intervalTimeVal);
   Serial.println(numTicksVal);
   Serial.println(bulbPressTimeVal);
@@ -113,9 +113,6 @@ void PressShutterBulb() {
   // Turn control pin ON (press shutter)
   digitalWrite(CONTROL_PIN, HIGH);
 
-  // Deep sleep by bulb time in seconds TODO DOES IT MAINTAIN GPIO STATE??
-  //ESP.deepSleep(bulbPressTimeVal * 1e6);
-
   // Modem sleep instead?
 //  WiFi.forceSleepBegin();
   delay(bulbPressTimeVal * 1000);
@@ -126,12 +123,11 @@ void PressShutterBulb() {
   digitalWrite(CONTROL_PIN, LOW);
 
   // Sleep the rest of the interval
-  int shotTime = bulbPressTimeVal * 1000;
-  int intervalActualTime = intervalTimeVal * 1000;
+  float shotTime = bulbPressTimeVal * 1000;
+  float intervalActualTime = intervalTimeVal * 1000;
 
   // Go to deep sleep. No GPIO state to maintain here
   if (shotTime < intervalActualTime) {
-    //ESP.deepSleep(intervalActualTime - shotTime);
     delay(intervalActualTime - shotTime);
   }
 }
